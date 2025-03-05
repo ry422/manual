@@ -58,50 +58,50 @@ bar.com = server:8.8.8.8
 
 [Proxy]
 # build in policy
-On = direct
-Off = reject
+on=直接
+off=拒绝
 
-# http proxy
-ProxyHTTP = http, 1.2.3.4, 443, username, password
+#http代理
+ProxyHTTP=http，1.2.3.4，443，用户名，密码
 
-# https proxy
-ProxyHTTPS = https, 1.2.3.4, 443, username, password, skip-cert-verify=true, sni=www.google.com
+#https代理
+ProxyHTTPS=https，1.2.3.4，443，用户名，密码，skip-cert-verify=true，sni=www.google.com
 
-# socks5 proxy
-ProxySOCKS5 = socks5, 1.2.3.4, 443, username, password, udp-relay=false
+#socks5代理
+ProxySocks5=socks5，1.2.3.4，443，用户名，密码，udp-relay=false
 
-# socks5 over tls proxy
-ProxySOCKS5TLS = socks5-tls, 1.2.3.4, 443, username, password, skip-cert-verify=true, sni=www.google.com
+#socks5over tls代理
+ProxySockS5TLS=socks5-tls，1.2.3.4，443，用户名，密码，skip-cert-verify=true，sni=www.google.com
 
-# shadowsocks proxy, simple-obfs supported
-ProxySS = ss, 1.2.3.4, 8000, encrypt-method=chacha20-ietf-poly1305, password=abcd1234, udp-relay=false, obfs=http, obfs-host=www.google.com, obfs-uri=/
+#shadowsocks代理，支持simple-obfs
+ProxySS=ss，1.2.3.4，8000，encrypt-method=chacha20-ietf-poly1305，密码=abcd1234，udp-relay=false，obfs=http，obfs-host=www.google.com，obfs-uri=/
 
-# vmess proxy, tls and websocket supported, pure tcp is not supported
-ProxyVMess = vmess, 1.2.3.4, 8000, username=0233d11c-15a4-47d3-ade3-48ffca0ce119, udp-relay=false, ws=true, tls=true, ws-path=/v2, ws-headers=X-Header-1:value|X-Header-2:value, skip-cert-verify=true, sni=www.google.com, vmess-aead=true
+#支持vmess代理、tls和websocket，不支持纯tcp
+ProxyVMess=vmess，1.2.3.4，8000，username=0233d11c-15a4-47d3-ade3-48ffca0ce119，UDP-relay=false，ws=true，TLS=true，ws-path=/v2，ws-headers=X-Header-1:value|X-Header-2:value，skip-cert-verify=true，sni=www.google.com，vmess-aead=true
 
-# trojan proxy, trojan grpc is not supported
-ProxyTrojan = trojan, 192.168.20.6, 443, password=password1, udp-relay=false, skip-cert-verify=true, sni=www.google.com
+#trojan proxy，不支援trojan grpc
+ProxyTrojan=trojan，192.168.20.6，443，password=password1，udp-relay=false，skip-cert-verify=true，sni=www.google.com
 
-# wireguard proxy
-ProxyWireguard = wireguard, section-name = HomeServer
+#WireGuard代理
+ProxyWireguard=Wireguard，section-name=homeserver
 
-[WireGuard HomeServer]
-private-key = sDEZLACT3zgNCS0CyClgcBC2eYROqYrwLT4wdtAJj3s=
-self-ip = 10.0.2.2
-dns-server = 8.8.8.8
-mtu = 1280
-peer = (public-key = fWO8XS9/nwUQcqnkfBpKeqIqbzclQ6EKP20Pgvzwclg=, allowed-ips = 0.0.0.0/0, endpoint = 192.168.20.6:51820)
+[WireGuard homeserver]
+私钥=sDEZLACT3zgNCS0CyClgcBC2eYROqYrwLT4wdTAJj3s=
+self-ip=10.0.2.2
+dns-server=8.8.8.8
+MTU=1280
+peer=(公钥=fWO8XS9/nwUQcqnkfBpKeqIqbzclQ6EKP20Pgvzwclg=，allowed-ips=0.0.0.0/0，endpoint=192.168.20.6:51820)
 
-[Proxy Group]
-# proxy group whose selected proxy can be changed manually
-SelectGroup = select, ProxyHTTP, ProxyHTTPS, DIRECT, REJECT
+[代理组]
+#可以手动更改所选代理的代理组
+Selectgroup=选择、ProxyHTTP、ProxyHTTPS、DIRECT、REJECT
 
-# proxy group whose selected proxy can be decided based on url test result automatically
-AutoTestGroup = url-test, ProxySOCKS5, ProxySOCKS5TLS, url=http://www.gstatic.com/generate_204, interval=600, tolerance=100, timeout=5, hidden=true
+#可以根据url测试结果自动决定所选代理的代理组
+AutoTestGroup=url-test，ProxySockS5，ProxySockS5TLS，url=http://www.gstatic.com/generate_204,间隔=600，容差=100，超时=5，hidden=true
 
-# proxy group with a external proxies list url
-ExternalGroup = select, policy-path=https://test.com/nodes.txt, policy-regex-filter=HK-.*
-AutoExternalGroup = url-test, policy-path=https://test.com/nodes.txt
+#具有外部代理列表url的代理组
+ExternalGroup=select，policy-path=https://test.com/nodes.txt, policy-regex-filter=HK-.*
+AutoExternalGroup=url-test，policy-path=https://test.com/nodes.txt
 
 # proxy group which contains all proxy under [Proxy] section
 AllProxies = select, include-all-proxies = true
